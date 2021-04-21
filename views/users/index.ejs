@@ -1,0 +1,22 @@
+<%- include('../partials/header') %>
+
+<table id="list">
+    <thead>
+        <th>Full Name:</th>
+        <th>Age:</th>
+        <th>Event:</th>
+        <th></th>
+    </thead>
+    <tbody>
+        <% users.forEach(user => {%>
+            <tr>
+                <td><%= user.name%></td>
+                <td><%= user.age%></td>
+                <td><%= user.event%></td>
+                <td><a href="/users/<%=user._id%>">View Dashboard</a></td>
+            </tr>
+        <%})%>
+    </tbody>
+</table>
+
+<%- include('../partials/footer') %>

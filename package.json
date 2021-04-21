@@ -1,7 +1,6 @@
 {
   "name": "run-tracker",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -13,6 +12,17 @@
   "dependencies": {
     "ejs": "^3.1.6",
     "express": "^4.17.1",
+    "mongoose": "^5.12.5",
     "morgan": "^1.10.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ferguimara/run-tracker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ferguimara/run-tracker/issues"
+  },
+  "homepage": "https://github.com/ferguimara/run-tracker#readme",
+  "description": ""
 }
