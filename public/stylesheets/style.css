@@ -66,7 +66,7 @@ nav > a.active {
   grid-template-columns: repeat(2, minmax(auto, 22rem));
 }
 
-#new-form *,  #add-destination-form *, #create-ticket-form * {
+#new-form *,  #add-workout-form *, #create-ticket-form * {
   font-size: 20px;
   padding: 5px;
   border-radius: 5px;
@@ -118,13 +118,13 @@ table td {
   font-weight: bold;
 }
 
-#add-destination-form, #create-ticket-form {
+#add-workout-form, #create-ticket-form {
   display: grid;
   grid-template-columns: auto auto;
   grid-gap: 1rem;
 }
 
-#add-destination-form input[type="submit"], #create-ticket-form input[type="submit"] {
+#add-workout-form input[type="submit"], #create-ticket-form input[type="submit"] {
   width: 12rem;
   grid-column: 2 / 3;
   margin-bottom: 2rem;

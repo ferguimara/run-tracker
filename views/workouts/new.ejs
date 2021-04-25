@@ -1,0 +1,16 @@
+<%- include('../partials/header') %>
+
+<form action="/workouts/<%= user._id%>/" id="add-workout-form" method="POST">
+	<label>Date:</label>
+	<input type="datetime-local" name="date">
+	<label>Miles:</label>
+	<input type="number" name="miles" step="0.01" placeholder="8.01">
+    <label>Time:</label>
+	<input type="string" name="time" placeholder="1:00:01">
+    <label>Pace:</label>
+	<input type="string" name="pace" placeholder="7:30/mi">
+	<input type="submit" value="Add Workout">
+</form>
+
+<%- include('../partials/footer') %>
+

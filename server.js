@@ -4,6 +4,9 @@ const morgan = require('morgan');
 const port = 3000;
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const workoutsRouter = require('./routes/workouts');
+
+
 
 // Set up express app
 const app = express();
@@ -22,6 +25,7 @@ app.use(express.urlencoded({ extended: false }));
 // Mount routes with app.use()
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/', workoutsRouter);
 
 // Tell App to listen
 app.listen(port, function() {
