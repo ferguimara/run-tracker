@@ -18,7 +18,7 @@ function create(req, res) {
         if (req.body[key]==="") delete req.body[key];
     }
     User.create(req.body, function (err, user) {
-        res.redirect('/users/new')
+        res.redirect('/users')
     })
 }
 
@@ -32,29 +32,45 @@ function index(req, res) {
 }
 
 function show(req, res) {
+    let miles = new Array
     let times = new Array;
+    let paces = new Array;
     User.findById(req.params.id, function (err, user) {
         user.workouts.forEach(workout => {
-            times.push(workout.time)
+            miles.push(workout.miles);
+            times.push(workout.time);
+            paces.push(workout.pace);
         });
-        console.log(times + 'is our array of times')
-        console.log(typeof(times))
-        console.log(times.length, 'is the length')
-        const arr = []
+        console.log(times + 'is our array of times');
+        console.log(typeof(times));
+        console.log(times.length, 'is the length');
+        const mileArr = [];
+        const timeArr = [];
+        const paceArr = [];
+        for(const mile in miles) {
+            console.log(`${mile}: ${miles[mile]}`)
+            mileArr.push(miles[mile])
+        }
         for(const time in times) {
             console.log(`${time}: ${times[time]}`)
-            arr.push(times[time])
+            timeArr.push(times[time])
         }
-        console.log(arr, 'is the arr')
-        const avgTime = getAverageTime(arr);
+        for(const pace in paces) {
+            console.log(`${pace}: ${paces[pace]}`)
+            paceArr.push(paces[pace])
+        }
+        const avgMiles = getAverageMile(mileArr);
+        const avgTime = getAverageTime(timeArr);
+        const avgPace = getAverageTime(paceArr);
         console.log(avgTime)
         // const avgPace = getAverageTime(user.workouts[pace]);
         res.render('users/show', {
             title: 'User Detail',
             user,
             //if else statement with length
-            // avgTime,
-            // avgPace,
+            avgMiles,
+            avgTime,
+            avgPace,
         });
     });
 }
@@ -65,18 +81,43 @@ function show(req, res) {
 
 //}
 
+function getAverageMile(workouts) {
+    let milesArr = [];
+    let length;
+    if (workouts.length < 7) {
+        length = workouts.length;
+    } else if (workouts.length === 7){
+        length = 7;
+    }else{
+        length = 7;
+    }
+    console.log(length, 'is length in getaveragefunction')
+    for (let i = 0; i < length; i++) {
+        milesArr.push(workouts[i]);
+    }
+    let total = 0;
+    for (let j = 0; j < length; j++) {
+        total = total + Number(milesArr[j]);
+    }
+    let avg = Math.round(total / length);
+    return avg
+}
+
 function getAverageTime(workouts) {
     //build array
-    // let times;
+    let timesArr = [];
     let length;
-    if (workouts.length === 7) {
-        length = 7;
-    } else {
+    if (workouts.length < 7) {
         length = workouts.length;
+    } else if (workouts.length === 7){
+        length = 7;
+    }else{
+        length = 7;
     }
-    // for (let i = 0; i < length; i++) {
-    //     times = workouts.pop();
-    // }
+    console.log(length, 'is length in getaveragefunction')
+    for (let i = 0; i < length; i++) {
+        timesArr.push(workouts[i]);
+    }
     //loop through times
     let hours;
     let minutes;
@@ -85,12 +126,9 @@ function getAverageTime(workouts) {
     let timesInSeconds = [];
     let convertedTime;
     let re = /[0-99]+/g;
-    // workouts.forEach(time => {
-
-    // })
     for (let i = 0; i < length; i++) {
         //parse using regex
-        let time = workouts[i];
+        let time = timesArr[i];
         if (time.match(re).length === 3) {
             console.log('length is 3')
             seconds = Number(time.match(re).splice(2, 1));
@@ -102,6 +140,7 @@ function getAverageTime(workouts) {
         } else if (time.match(re).length === 2) {
             console.log('length is 2')
             console.log(time.match(re))
+            hours = 0;
             seconds = Number(time.match(re).splice(1, 1));
             minutes = Number(time.match(re).splice(0, 1));
             console.log(seconds, 'seconds', minutes, 'minutes')
@@ -109,7 +148,8 @@ function getAverageTime(workouts) {
             //   console.log(convertedTime);
         } else {
             console.log('length is 1')
-            seconds = Number(time.match(re).splice(2, 1));
+            hours = 0;
+            seconds = Number(time.match(re).splice(0, 1));
             console.log(seconds, 'seconds')
             //   convertedTime = seconds;
             //   console.log(convertedTime);
@@ -120,9 +160,9 @@ function getAverageTime(workouts) {
         totalSeconds += seconds;
         //add to array
         timesInSeconds[i] = totalSeconds;
-        hours = ''
-        minutes = ''
-        seconds = ''
+        hours = '';
+        minutes = '';
+        seconds = '';
     }
     //find average timesInSeconds
     let total = 0;
@@ -141,7 +181,11 @@ function getAverageTime(workouts) {
     //adding leading zeros for seconds, minutes
     avgSecs = ('0' + avgSecs).slice(-2);
     avgMins = ('0' + avgMins).slice(-2);
-    convertedTime = avgHrs + ':' + avgMins + ':' + avgSecs
+    if(avgHrs === 0){
+        convertedTime = avgMins + ':' + avgSecs
+    }else{
+        convertedTime = avgHrs + ':' + avgMins + ':' + avgSecs
+    }
     console.log(convertedTime, 'is the converted time')
     return convertedTime
 }

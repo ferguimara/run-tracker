@@ -1,20 +1,17 @@
 <%- include('../partials/header') %>
 
-<form action="/users" method ="POST">
-    <label>Full Name:
-        <input type="text" name="name" placeholder="Full Name...">
-    </label>
-    <label>Age:
-        <input type="number" name="age">
-    </label>
-    <label>Event:
-        <select name="event">
-            <option value="5K">5K</option>
-            <option value="Half-Marathon">Half-Marathon</option>
-            <option value="Marathon">Marathon</option>
-            <option value="Other">Other</option>
-        </select>
-    </label>
+<form id="new-form" action="/users" method ="POST">
+    <label>Full Name:</label>
+    <input type="text" name="name" placeholder="Full Name...">
+    <label>Age:</label>
+    <input type="number" name="age">
+    <label>Event:</label>
+    <select name="event">
+        <option value="5K">5K</option>
+        <option value="Half-Marathon">Half-Marathon</option>
+        <option value="Marathon">Marathon</option>
+        <option value="Other">Other</option>
+    </select>
     <input type="submit" value="Create User">
 </form>
 
