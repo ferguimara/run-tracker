@@ -14,7 +14,7 @@ function newWorkout(req, res) {
 }
 
 function create(req, res){
-	console.log(req.params.id, 'is the id')
+    console.log(req.params.id, 'is the id')
     for (let key in req.body){
         if (req.body[key]==="") delete req.body[key];
     }

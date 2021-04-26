@@ -7,7 +7,6 @@ const usersRouter = require('./routes/users');
 const workoutsRouter = require('./routes/workouts');
 
 
-
 // Set up express app
 const app = express();
 
@@ -30,4 +29,5 @@ app.use('/', workoutsRouter);
 // Tell App to listen
 app.listen(port, function() {
     console.log(`Express is listening on port:${port}`);
+    console.log('Hello');
 });
