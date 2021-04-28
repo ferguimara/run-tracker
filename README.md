@@ -32,7 +32,7 @@ Version 1:
 
 
 ## Getting Started
-[Click here](https://ferguimara.github.io/random-movie-generator/) to get started
+[Click here](https://run-tracker-fg.herokuapp.com/users) to get started
 
 ## Future Enhancements
 - Add CRUD for workouts
