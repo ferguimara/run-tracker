@@ -2,10 +2,11 @@
 const express = require('express');
 const morgan = require('morgan');
 const methodOverride = require('method-override');
-const port = 3000;
+const port = process.env.PORT || 3000;
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const workoutsRouter = require('./routes/workouts');
+require('dotenv').config();
 
 
 // Set up express app
