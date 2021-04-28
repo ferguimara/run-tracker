@@ -5,6 +5,9 @@ module.exports = {
     create,
     index,
     show,
+    delete: deleteUser,
+    edit,
+    update,
 };
 
 function newUser(req, res) {
@@ -28,6 +31,27 @@ function index(req, res) {
             users,
             title: 'All Users',
         })
+    })
+}
+
+function deleteUser(req, res){
+    User.findByIdAndDelete(req.params.id, function(err, user){
+       res.redirect('/') 
+    })
+}
+
+function edit(req, res){
+    User.findById(req.params.id, function (err, user){
+        res.render('users/edit', {
+            user,
+            title: 'Edit User',
+        })
+    })
+}
+
+function update(req, res){
+    User.findByIdAndUpdate(req.params.id, req.body, function(err, user){
+        res.redirect('/');
     })
 }
 
@@ -65,7 +89,7 @@ function show(req, res) {
         console.log(avgTime)
         // const avgPace = getAverageTime(user.workouts[pace]);
         res.render('users/show', {
-            title: 'User Detail',
+            title: `${user.name}'s Dashboard`,
             user,
             //if else statement with length
             avgMiles,

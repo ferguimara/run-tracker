@@ -1,56 +1,63 @@
 <%- include('../partials/header') %>
 
 <section id="show-page">
-  <div>Full Name: </div>
-  <div><%= user.name %></div>
   <div>Age: </div>
   <div><%= user.age %></div>
+  <div><a href="/users/<%= user._id%>/edit">Update User</a></div>
   <div>Event: </div>
   <div><%= user.event %></div>
+  <div><a href="/users/<%=user._id%>/workouts/new" id="add-workout-button">Add Workout</a></div>
 </section>
 
-<% if(user.workouts.length) {%>
-	<table>
-		<thead>
-		<tr>
-			<th> Date </th>
-			<th> Miles </th>
-			<th> Time </th>
-			<th> Pace </th>
-		</tr>
-		</thead>
+<section id='table-wrapper'>
+	<% if(user.workouts.length) {%>
+		<table id="show-table">
+			<thead>
+			<tr>
+				<th> Date </th>
+				<th> Miles </th>
+				<th> Time </th>
+				<th> Pace </th>
+			</tr>
+			</thead>
+			<tbody>
+				<% user.workouts.forEach(workout =>{%>
+					<tr>
+						<td><%= workout.date.toLocaleDateString() + " " + workout.date.toLocaleTimeString() %></td>
+						<td><%= workout.miles %></td>
+						<td><%= workout.time %></td>
+						<td><%= workout.pace %></td>
+					</tr>
+				<%}) %>
+			</tbody>
+			
+		</table>
+	<%}else {%>
+		<h5>No workouts Yet</h5>
+	<%}%>
+
+	<table id="show-table" class="average-table">
 		<tbody>
-			<% user.workouts.forEach(workout =>{%>
+				<thead>
+					<tr>
+						<th colspan="2">7-day Averages:</th>
+					</tr>
+				</thead>
 				<tr>
-					<td><%= workout.date.toLocaleDateString() + " " + workout.date.toLocaleTimeString() %></td>
-					<td><%= workout.miles %></td>
-					<td><%= workout.time %></td>
-					<td><%= workout.pace %></td>
+					<th>Average Miles:</th>
+					<td><%=`${avgMiles} miles`%></td>
+					
 				</tr>
-			<%}) %>
+				<tr>
+					<th>Average Time:</th>
+					<td><%=avgTime%></td>
+				</tr>
+				<tr>
+					<th>Average Pace:</th>
+					<td><%=`${avgPace}/mile`%></td>
+				</tr>
 		</tbody>
 	</table>
-<%}else {%>
-	<h5>No workouts Yet</h5>
-<%}%>
-
-<a href="/users/<%=user._id%>/workouts/new">Add Workout</a>
-
-<table>
-    <thead>
-    <tr>
-        <th> Average Miles </th>
-        <th> Average Time </th>
-        <th> Average Pace </th>
-    </tr>
-    </thead>
-    <tbody>
-            <tr>
-				<td><%=`${avgMiles} miles`%></td>
-				<td><%=avgTime%></td>
-				<td><%=`${avgPace}/mile`%></td>
-            </tr>
-    </tbody>
-</table>
+</section>
 
 <%- include('../partials/footer') %>

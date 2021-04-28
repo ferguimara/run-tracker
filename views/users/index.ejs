@@ -2,6 +2,7 @@
 
 <table id="list">
     <thead>
+        <th></th>
         <th>Full Name:</th>
         <th>Age:</th>
         <th>Event:</th>
@@ -10,6 +11,9 @@
     <tbody>
         <% users.forEach(user => {%>
             <tr>
+                <td><form action="/users/<%= user._id %>?_method=DELETE" method="POST">
+                    <button type="submit">❌</button>
+                </form></td>
                 <td><%= user.name%></td>
                 <td><%= user.age%></td>
                 <td><%= user.event%></td>
