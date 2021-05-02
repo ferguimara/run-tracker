@@ -83,6 +83,7 @@ function show(req, res) {
             console.log(`${pace}: ${paces[pace]}`)
             paceArr.push(paces[pace])
         }
+        const totalMiles = getTotalMile(mileArr);
         const avgMiles = getAverageMile(mileArr);
         const avgTime = getAverageTime(timeArr);
         const avgPace = getAverageTime(paceArr);
@@ -92,6 +93,7 @@ function show(req, res) {
             title: `${user.name}'s Dashboard`,
             user,
             //if else statement with length
+            totalMiles,
             avgMiles,
             avgTime,
             avgPace,
@@ -104,6 +106,26 @@ function show(req, res) {
 //function getaverageMile(workout){
 
 //}
+function getTotalMile(workouts) {
+    let milesArr = [];
+    let length;
+    if (workouts.length < 7) {
+        length = workouts.length;
+    } else if (workouts.length === 7){
+        length = 7;
+    }else{
+        length = 7;
+    }
+    console.log(length, 'is length in gettotalfunction')
+    for (let i = 0; i < length; i++) {
+        milesArr.push(workouts[i]);
+    }
+    let total = 0;
+    for (let j = 0; j < length; j++) {
+        total = total + Number(milesArr[j]);
+    }
+    return total
+}
 
 function getAverageMile(workouts) {
     let milesArr = [];
